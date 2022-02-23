@@ -30,6 +30,7 @@ contract ShareWallet is Owner, Receiver {
     //Events
     event AllowanceChanged(address _user, uint _amount);
     event MoneyWithdrawn(address _user, uint _amount);
+    event UserRegistered(address _user, uint _count);
 
 
     function changeAllowance(address _userAddress, uint _amount)public onlyOwner{
@@ -41,6 +42,8 @@ contract ShareWallet is Owner, Receiver {
        require(!isUserRegistered[_newUser],"User is already Registered");
        registeredUsers.push(_newUser);
        isUserRegistered[_newUser] = true;
+
+        emit UserRegistered(_newUser,registeredUsers.length);
     }
 
     function getRegisteredUsersCount() public view returns(uint count) {
